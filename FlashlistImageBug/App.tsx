@@ -1,22 +1,48 @@
 // library deps
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Image,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Image, FlatList} from 'react-native';
 import {FlashList} from '@shopify/flash-list';
 import {FasterImageView} from '@candlefinance/faster-image';
+import BigList from 'react-native-big-list';
 
+/*
+export default function App(): React.JSX.Element {
+  return (
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <FlatList
+        data={new Array(2).fill(null)}
+        renderItem={({index}) =>
+          index === 0 ? <HeaderComponent /> : <ListItem />
+        }
+      />
+    </SafeAreaView>
+  );
+}*/
+
+/*
 export default function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <FlashList
         ListHeaderComponent={HeaderComponent}
         renderItem={() => <ListItem />}
-        data={new Array(10).fill(null)}
-        estimatedItemSize={10}
+        data={new Array(2).fill(null)}
+        estimatedItemSize={2}
+      />
+    </SafeAreaView>
+  );
+}*/
+export default function App(): React.JSX.Element {
+  return (
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <BigList
+        renderItem={({index}) =>
+          index === 0 ? <HeaderComponent /> : <ListItem />
+        }
+        data={new Array(100).fill(null)}
+        itemHeight={400}
+        renderFooter={undefined}
+        renderHeader={undefined}
       />
     </SafeAreaView>
   );
@@ -51,26 +77,28 @@ function ImageComponent() {
 }
 
 function NewImageComponent() {
-  return <FasterImageView
-    onError={event => {
-      console.warn(event.nativeEvent.error);
-    }}
-    style={{
-      width: 100,
-      height: 100,
-    }}
-    onSuccess={event => {
-      console.log(event.nativeEvent);
-    }}
-    source={{
-      borderRadius: 50,
-      transitionDuration: 0.3,
-      cachePolicy: 'discWithCacheControl',
-      showActivityIndicator: true,
-      url: 'https://picsum.photos/200/200?random=0',
-      grayscale: 0,
-    }}
-  />
+  return (
+    <FasterImageView
+      onError={event => {
+        console.warn(event.nativeEvent.error);
+      }}
+      style={{
+        width: 100,
+        height: 100,
+      }}
+      onSuccess={event => {
+        console.log(event.nativeEvent);
+      }}
+      source={{
+        borderRadius: 50,
+        transitionDuration: 0.3,
+        cachePolicy: 'discWithCacheControl',
+        showActivityIndicator: true,
+        url: 'https://picsum.photos/200/200?random=0',
+        grayscale: 0,
+      }}
+    />
+  );
 }
 
 const styles = StyleSheet.create({
@@ -89,6 +117,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: 400,
     backgroundColor: '#DEA',
-    paddingLeft: 10,
+    paddingLeft: 15,
+    paddingTop: 15,
   },
 });
